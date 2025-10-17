@@ -17,6 +17,7 @@ A web app that provides a **realtime collaborative coding environment**, enablin
 | **Frontend Framework** | Next.js / React    | Choose based on routing & SSR needs                                                      |
 | **Styling**            | Tailwind CSS       | For rapid UI development                                                                 |
 | **Backend (if required)** | Supabase/Firebase/Custom Nodejs Backend | For Server Stuff |
+| **Redux** | (Y/N) | I don't know redux |
 
 ---
 

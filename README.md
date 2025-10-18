@@ -26,7 +26,15 @@ A web app that provides a **realtime collaborative coding environment**, enablin
   OR
 * Is it supposed to be a cloud-based solution allowing you to save files and load it on any system after auth ?
   
-
+##Basic Idea 
+* Collaborative cloud-based coding platform
+* Enables multiple users to code in real-time
+* Includes syntax highlighting for various languages
+* Users can login, create account and join rooms
+* Persistent sessions for continued access
+*  Room specific live chat
+*  file and project management system allows users to load, create, edit, organize and files
+*  for security and isolation, remote code execution will inside containerized environments
 
 ## 🚀 #1 Planned Features
 

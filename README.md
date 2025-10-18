@@ -17,7 +17,7 @@ A web app that provides a **realtime collaborative coding environment**, enablin
 | **Frontend Framework** | Next.js / React    | Choose based on routing & SSR needs                                                      |
 | **Styling**            | Tailwind CSS       | For rapid UI development                                                                 |
 | **Backend (if required)** | Supabase/Firebase/Custom Nodejs Backend | For Server Stuff |
-| **React contaxt+hooks** | N | Contaxt API |
+| **State management** | Contaxt API | No prop drilling |
 
 ---
 
@@ -27,14 +27,14 @@ A web app that provides a **realtime collaborative coding environment**, enablin
 * Is it supposed to be a cloud-based solution allowing you to save files and load it on any system after auth ?
   
 ## Basic Idea 
-* Collaborative cloud-based coding platform
+* Collaborative web-based coding platform
 * Enables multiple users to code in real-time
 * Includes syntax highlighting for various languages
 * Users can login, create account and join rooms
 * Persistent sessions for continued access
-*  Room specific live chat
-*  file and project management system allows users to load and edit files
-*  for security and isolation, remote code execution will inside containerized environments
+* Room specific live chat
+* File and project management system allows users to load and edit files
+* For security and isolation, remote code execution will be inside containerized environments
 
 ## 🚀 #1 Planned Features
 

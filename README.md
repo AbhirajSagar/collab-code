@@ -33,7 +33,7 @@ A web app that provides a **realtime collaborative coding environment**, enablin
 * Users can login, create account and join rooms
 * Persistent sessions for continued access
 *  Room specific live chat
-*  file and project management system allows users to load, create, edit, organize and files
+*  file and project management system allows users to load and edit files
 *  for security and isolation, remote code execution will inside containerized environments
 
 ## 🚀 #1 Planned Features

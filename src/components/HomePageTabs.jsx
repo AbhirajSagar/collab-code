@@ -2,6 +2,7 @@
 // Add more properties to extend functionality
 
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 const TABS = 
 [
@@ -21,6 +22,7 @@ export default TABS;
 function CreateWorkSpace()
 {
     const router = useRouter();
+    const [workspaceName, setWorkspaceName] = useState(null);
 
     return (
       <div className="p-4">
@@ -29,12 +31,13 @@ function CreateWorkSpace()
           type="text" 
           placeholder="Workspace Name" 
           className="border p-2 rounded text-muted focus:outline-1 focus:outline-orange-300 w-full mb-3"
+          onChange={(e) => setWorkspaceName(e.target.value)}
         />
         <textarea 
           placeholder="Description (optional)" 
           className="border p-2 resize-none rounded text-muted focus:outline-1 focus:outline-orange-300 w-full mb-3"
         />
-        <button onClick={() => launchWorkSpace(router)} className="dark:bg-background-dark bg-muted text-white mb-4 cursor-pointer dark:text-muted px-4 py-2 rounded float-right duration-300 transition-colors hover:bg-orange-500 hover:text-white">
+        <button onClick={() => launchWorkSpace(router,workspaceName)} className="dark:bg-background-dark bg-muted text-white mb-4 cursor-pointer dark:text-muted px-4 py-2 rounded float-right duration-300 transition-colors hover:bg-orange-500 hover:text-white">
           Create Workspace
         </button>
       </div>
@@ -53,14 +56,14 @@ function JoinWorkSpace()
           placeholder="Workspace Join Code" 
           className="border p-2 rounded text-muted focus:outline-1 focus:outline-orange-300 w-full mb-3"
         />
-        <button onClick={() => launchWorkSpace(router)} className="dark:bg-background-dark bg-muted text-white mb-4 cursor-pointer dark:text-muted px-4 py-2 rounded float-right duration-300 transition-colors hover:bg-orange-500 hover:text-white">
+        <button onClick={() => {}} className="dark:bg-background-dark bg-muted text-white mb-4 cursor-pointer dark:text-muted px-4 py-2 rounded float-right duration-300 transition-colors hover:bg-orange-500 hover:text-white">
           Join Workspace
         </button>
       </div>
     )
 }
 
-function launchWorkSpace(router)
+function launchWorkSpace(router, workspaceName) 
 {
-  router.push('/editor');
+  router.push(`/editor?name=${encodeURIComponent(workspaceName)}`);
 }

@@ -22,7 +22,8 @@ export default function RootLayout({ children })
   return (
     <html lang="en">
       <body className={`${outfit.variable} bg-background-alt dark:bg-background-dark antialiased`}>
-        <ClientLoader>
+        {/* For Handing Loading Animation */}
+        <ClientLoader> 
           {children}
         </ClientLoader>
       </body>

@@ -1,36 +1,47 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# 🧩 Collaborative Coding
 
-## Getting Started
+**Realtime Collaborative Coding Platform**
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## 🎯 Objective
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+A web app that provides a **realtime collaborative coding environment**, enabling multiple users to code together, share sessions, and work on projects simultaneously.
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 🧠 Tech Stack
 
-## Learn More
+* Nextjs
+* TailwindCSS
+* FontawesomeIcons
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Basic Idea 
+* Collaborative web-based coding platform
+* Enables multiple users to code in real-time
+* Includes syntax highlighting for various languages
+* Users can login, create account and join rooms
+* Persistent sessions for continued access
+* Room specific live chat
+* File and project management system allows users to load and edit files
+* For security and isolation, remote code execution will be inside containerized environments
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 🚀 #1 Planned Features
 
-## Deploy on Vercel
+* Realtime multi-user editing
+* Syntax highlighting
+* User sessions and room sharing
+* Chat system for collaboration
+* File/project management
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+---
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 📦 Setup 
+
+* Clone the repo using **git clone <git-url>**
+* Go to the root directory and open up terminal to run the command **npm install**
+* Run the command **npm run dev** to start development locally
+
+---

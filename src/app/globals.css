@@ -5,11 +5,11 @@
   --primary: #5876de;             /* main brand color / buttons */
   --accent: #ffb256;              /* highlights, call-to-action */
   --muted: #999999;               /* secondary text, placeholders */
-  --text-default: #3e3e3e;        /* main text */
+  --background-muted-dark: #232323;        /* main text */
   --text-dark: #1f1f1f;           /* headings or dark text */
   --background-dark: #151515;     /* dark backgrounds */
   --background-light: #ffffff;    /* light backgrounds */
-  --background-alt: #e1dfdf;      /* cards, panels */
+  --background-alt: #ebebeb;      /* cards, panels */
   --highlight-light: #88a3ff;     /* hover, focus, info */
   --black: #000000;               /* black for borders, text */
 }
@@ -24,7 +24,7 @@ body
   --color-primary: var(--primary);             
   --color-accent: var(--accent);              
   --color-muted: var(--muted);               
-  --color-text-default:var(--text-default) ;      
+  --color-background-muted-dark:var(--background-muted-dark) ;      
   --color-text-dark:var(--text-dark) ;           
   --color-background-dark:var(--background-dark) ;     
   --color-background-light:var(--background-light) ;    

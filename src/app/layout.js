@@ -1,5 +1,6 @@
 import { Outfit } from "next/font/google";
 import ClientLoader from '@/components/ClientLoader'
+import AnimatedModal from "@/components/AnimatedModal";
 import "./globals.css";
 
 import { config } from '@fortawesome/fontawesome-svg-core'
@@ -23,7 +24,7 @@ export default function RootLayout({ children })
     <html lang="en">
       <body className={`${outfit.variable} bg-background-alt dark:bg-background-dark antialiased`}>
         {/* For Handing Loading Animation */}
-        <ClientLoader> 
+        <ClientLoader>
           {children}
         </ClientLoader>
       </body>

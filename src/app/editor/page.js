@@ -20,7 +20,7 @@ export default function EditorPage()
 
     useEffect(() => 
     {
-        if(peerRef === null) //Avoid re-creation of peer
+        if(peerRef.current === null) //Avoid re-creation of peer
         {
             const peer = new Peer();
             peerRef.current = peer;
@@ -31,13 +31,13 @@ export default function EditorPage()
                 setPeerId(id);
                 
                 //we got the id so just setup the environment based on if you're a client or host of workspace
-
                 const editorMode = searchParams.get('mode');
                 if(editorMode === 'client')
                 {
                     const workspaceIdToJoin = searchParams.get('id');
                     const conn = peer.connect(workspaceIdToJoin);
                     setWorkspaceMode('client');
+                    conn.on('data',(d) => console.log('received data',data))           
                 }
                 else //is a host so no need to setup any connection
                 {
@@ -47,20 +47,6 @@ export default function EditorPage()
                 }
             }); 
             peer.on('error',(error) => console.error(error)); //need for any error handling
-            peer.on('connection', (conn) => 
-            {
-                //saving connections to display in share modal
-                console.log('new connection received',conn);
-                setConnections((oldConns) => [...oldConns, conn]); //can't push so spread..
-
-                conn.on('data', (d) => 
-                {
-                    console.log(d);
-                    //Everybody backup backup... data is cuming
-                    if(d.type === 'code')
-                        setCode(d.value);
-                });
-            });
         }
     },[]);
 
@@ -73,8 +59,10 @@ export default function EditorPage()
             value: value
         }
 
-        connections.forEach((conn) => conn.send(data));
+        console.log('sending data', data);
+
         setCode(value);
+        connections.forEach(async (conn) => await conn.send(data));
     }
 
     return (
@@ -83,7 +71,7 @@ export default function EditorPage()
             <div className="w-full h-full flex">
                 <Sidebar/>
                 <div className="w-full bg-amber-400 h-full">
-                    <Editor height='100vh' width='100%' defaultLanguage='javascript' defaultValue={code} onChange={(v) => handleCodeSync(v)} theme='vs-dark'/>
+                    <Editor height='100vh' width='100%' defaultLanguage='javascript' value={code} onChange={(v) => handleCodeSync(v)} theme='vs-dark'/>
                 </div>
             </div>
         </div>

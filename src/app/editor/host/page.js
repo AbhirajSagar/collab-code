@@ -10,59 +10,92 @@ import AnimatedModal from "@/components/AnimatedModal";
 export default function EditorPage()
 {
     const searchParams = useSearchParams();
-    const [workspaceName, setWorkspaceName] = useState('Untitled Project');
-    const [peerId, setPeerId] = useState(null);
-    const [workspaceMode, setWorkspaceMode] = useState(null);
-    const [connections, setConnections] = useState([]);
-    const peerRef = useRef(null);
-    //Editor Workspace
+    
+    const [workspaceName, setWorkspaceName] = useState('Untitled Project'); //Current Workspace Name
+    const [peerId, setPeerId] = useState(''); //Your Peer Id
+    const peerRef = useRef(null); //This is your own peer 
+    const [connections, setConnections] = useState([]); //All clients
     const [code, setCode] = useState(''); //For storing actual written code..
-
+    
     useEffect(() => 
     {
-        if(peerRef.current === null) //Avoid re-creation of peer
-        {
-            const peer = new Peer();
-            peerRef.current = peer;
-            peer.on('open', (id) => 
-            {
-                //we get the id on open event
-                console.log('peer opened with id :', id);
-                setPeerId(id);
-                
-                //we got the id so just setup the environment based on if you're a client or host of workspace
-                const editorMode = searchParams.get('mode');
-                if(editorMode === 'client')
-                {
-                    const workspaceIdToJoin = searchParams.get('id');
-                    const conn = peer.connect(workspaceIdToJoin);
-                    setWorkspaceMode('client');
-                    conn.on('data',(d) => console.log('received data',data))           
-                }
-                else //is a host so no need to setup any connection
-                {
-                    const name =  searchParams.get('name');
-                    setWorkspaceName(name);
-                    setWorkspaceMode('host');
-                }
-            }); 
-            peer.on('error',(error) => console.error(error)); //need for any error handling
-        }
-    },[]);
+        if(peerRef.current === null)
+        setUpHostPeer();
+        
+        return clearPeer;
+    }, []);
 
+    function clearPeer()
+    {
+        if(peerRef.current !== null)
+        {
+            peerRef.current.destroy();
+            peerRef.current = null;
+        }
+    }
+
+    function setUpHostPeer()
+    {
+        const workspaceNameParam = searchParams.get('name');
+        workspaceNameParam && setWorkspaceName(workspaceNameParam);
+
+        const peer = new Peer();
+        peerRef.current = peer;
+
+        peer.on('open', (id) => 
+        {
+            setPeerId(id);
+            console.log('Peer connected with ID:', id);
+        });
+
+        peer.on('connection', (conn) =>
+        {
+            console.log('New connection from:', conn.peer);
+
+            const messageToSend = getMessage();
+            setConnections((prev) => [...prev, conn]);
+            connections.forEach((con) => con.send(messageToSend));
+
+            conn.on('data', (data) =>
+            {
+                console.log('Received data from peer:', data);
+                handleReceivedData(data);
+            });
+        });
+    }
+
+    function getMessage()
+    {
+        const message = 
+        {
+            type: 'code',
+            content: code
+        }
+
+        return message;
+    }
+
+    function handleReceivedData(data)
+    {
+        if(data.type === 'code')
+        {
+            setCode(data.content);
+        }
+
+        //can add other types of message and their respective action
+        //for example
+        // if(data.type === 'cursor')
+        // {
+        //     //handle cursor position update
+        // }
+    }
 
     function handleCodeSync(value)
     {
-        const data = 
-        {
-            type: 'code',
-            value: value
-        }
-
-        console.log('sending data', data);
-
         setCode(value);
-        connections.forEach(async (conn) => await conn.send(data));
+        const messageToSend = getMessage();
+
+        connections.forEach((con) => con.send(messageToSend));
     }
 
     return (
@@ -99,9 +132,9 @@ function EditorNavbar({workspaceName, peerId})
 
     function copyWorkspaceId()
     {
-        navigator.clipboard.writeText(peerId);
+        navigator.clipboard.writeText(`${peerId}@${encodeURIComponent(workspaceName)}`);
         setIsCopied(true);
-        setTimeout(() => setIsCopied(false),2000);
+        setTimeout(() => setIsCopied(false), 2000);
     }
 
     return (
@@ -111,7 +144,7 @@ function EditorNavbar({workspaceName, peerId})
             <AnimatedModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} className='p-4 flex flex-col'>
                 <h2 className="w-full text-muted font-semibold">Share your workspace</h2>
                 <div className="w-full justify-between px-3 items-center flex h-10 mt-3 rounded bg-background-dark">
-                    <h2 className="text-muted font-light text-sm">{peerId}</h2>
+                    <h2 className="text-muted font-light text-sm">{peerId}@{encodeURIComponent(workspaceName)}</h2>
                     <FontAwesomeIcon icon={copied ? faCheckCircle : faCopy} onClick={() => copyWorkspaceId()} className={`${copied ? 'text-green-600' : 'text-muted'} p-2 hover:bg-background-muted-dark ${copied ? 'hover:text-green-400' : 'hover:text-white'} rounded cursor-pointer`}/>
                 </div>
                 <div className="h-24 w-full rounded my-2 bg-background-dark flex-1 justify-center items-center flex">

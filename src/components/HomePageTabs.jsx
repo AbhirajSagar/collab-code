@@ -61,10 +61,10 @@ function JoinWorkSpace()
 
 function launchWorkSpace(router, workspaceName) 
 {
-  router.push(`/editor?name=${encodeURIComponent(workspaceName)}&mode=host`);
+  router.push(`/editor/host?name=${encodeURIComponent(workspaceName)}`);
 }
 
 function joinWorkSpace(router, workspaceId)
 {
-  router.push(`/editor?id=${encodeURIComponent(workspaceId)}&mode=client`);
+  router.push(`/editor/client?id=${encodeURIComponent(workspaceId)}`);
 }

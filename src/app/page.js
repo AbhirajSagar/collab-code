@@ -3,7 +3,6 @@ import { useState } from "react";
 
 import Navbar from "@/components/Navbar";
 import Tabs from "@/components/HomePageTabs"
-import FallingGraphics from "@/components/FallingGraphics";
 
 export default function Home() 
 {
